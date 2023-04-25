@@ -1,13 +1,14 @@
-import mongoose from "mongoose"
+import {Schema, Types, model} from "mongoose"
 
-let schema = new mongoose.Schema({
+
+let schema = new Schema({
     name: {type:String,required:true},
     logo: {type:String,required:true},
     website: {type:String,required:true},
     description : {type:String,required:true},
     active: {type:Boolean,required:true},
     user_id: {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: "users",
         required: true
     }
@@ -17,6 +18,6 @@ let schema = new mongoose.Schema({
 
 let collection = "companies"
 
-let Company = mongoose.model(schema, collection)
+let Company = model(collection, schema)
 
 export default Company

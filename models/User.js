@@ -1,7 +1,7 @@
 import { Code } from "bson";
-import mongoose from "mongoose";
+import {Schema, Types, model} from "mongoose";
 
-let schema = new mongoose.Schema({
+let schema = new Schema({
         email: {
             type: String , required:true
         },
@@ -27,6 +27,6 @@ let schema = new mongoose.Schema({
 
     let collection = "users"
 
-    let User = mongoose.model(schema, collection)
+    let User = model(collection, schema)
 
     export default User

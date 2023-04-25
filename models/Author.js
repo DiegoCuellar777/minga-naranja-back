@@ -5,7 +5,7 @@ let schema = new Schema({
         last_name: {type: String , required:false},
         city: {type: String, required:true},
         country: {type: String, required:true},
-        date: {type: Date, required:true},
+        date: {type: Date},
         photo: {type: String , required:true},
         active: {type: Boolean, required:true},
         user_id: {
@@ -19,6 +19,6 @@ let schema = new Schema({
 
     let collection = "authors"
 
-    let Author = model(schema, collection)
+    let Author = model(collection, schema)
 
     export default Author
