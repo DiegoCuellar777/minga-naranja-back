@@ -6,6 +6,7 @@ import categoryRouter from "./categories.js"
 import companyRouter from "./companies.js"
 import chapterRouter from "./chapters.js"
 import mangaRouter from "./mangas.js"
+import carouselRouter from "./carousels.js"
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router.use("/categories", categoryRouter)
 router.use("/companies", companyRouter)
 router.use("/mangas", mangaRouter)
 router.use("/chapters", chapterRouter)
+router.use("/carousels", carouselRouter)
 
 export default router
