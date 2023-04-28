@@ -1,4 +1,4 @@
-// import createHttpError from "http-errors";
+import createHttpError from "http-errors";
 import User from "../../models/User.js"
 
 let create = async(req,res,next) =>{
