@@ -15,7 +15,7 @@ import indexRouter from'./routes/index.js'
 import notFound from './middlewares/notFound.js'
 import errorHandler from './middlewares/errorHandler.js'
 
-
+//organizar mejor y separar los middlewares
 
 
 import {__dirname} from './utils.js'

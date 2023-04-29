@@ -1,14 +1,9 @@
-// Se definen los endpoints de los autores 
-// y se exportan para poder utilizarlos en el enrutador PRINCIPAL
-
 import { Router } from "express"
 import read from "../controllers/authors/read.js"
+import create from "../controllers/authors/create.js"
 let router = Router()
 
-//router.post("/",(req, res, next)=>res.status(200).send("autor creado"))
 router.get("/", read)
-//router.put("/id",(req, res, next)=>res.status(200).send("autor modificado"))
-//router.delete("/id",(req, res, next)=>res.status(200).send("autor eliminado"))
+router.post("/", create)
 
 export default router
-
