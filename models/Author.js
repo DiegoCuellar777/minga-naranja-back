@@ -11,7 +11,7 @@ let schema = new Schema({
     user_id: {
         type: Types.ObjectId,
         ref: "users",
-        required: true
+        required: false
     }
 }, {
     timestamps: true

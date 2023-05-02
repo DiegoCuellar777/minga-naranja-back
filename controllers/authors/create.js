@@ -3,10 +3,12 @@ import Author from "../../models/Author.js"
 
 let create = async (req, res, next) => {
     try {
+        req.body.active= true,
+        req.body.user_id= "6450e6a056bfbd76de7cb23b",
+        console.log(req.body)
         let one = new Author(req.body)
         await one.save() // llama a la función save() para guardar el autor en la base de datos
         return res.status(201).json({
-            email: one.email,
             author: `${one.name} ${one.last_name}`,
             success: true,
             createdAt: one.createdAt // accede a la propiedad createdAt después de llamar a la función save()
@@ -17,23 +19,3 @@ let create = async (req, res, next) => {
 }
 
 export default create
-
-/*
-import Author from "../../models/Author.js";
-
-const create = async (req, res, next) => {
-    try {
-        const newAuthor = new Author({
-            name: req.body.name,
-            description: req.body.description,
-            active: true, // Hasta que se configure el panel de admin, ACTIVE debe estar en true
-        });
-        await newAuthor.save();
-        res.status(201).json(newAuthor);
-    } catch (error) {
-        next(error);
-    }
-};
-
-export default create; 
-*/
