@@ -1,14 +1,23 @@
-// Se definen los endpoints de los autores 
+// Se definen los endpoints de los mangas
 // y se exportan para poder utilizarlos en el enrutador PRINCIPAL
-
 import { Router } from "express"
 import read from "../controllers/mangas/read.js"
+import create from "../controllers/mangas/create.js"
+import passport from "passport"
+
 let router = Router()
 
-//router.post("/",(req, res, next)=>res.status(200).send("autor creado"))
-router.get("/", read)
-//router.put("/id",(req, res, next)=>res.status(200).send("autor modificado"))
-//router.delete("/id",(req, res, next)=>res.status(200).send("autor eliminado"))
+router.get("/", passport.authenticate('jwt', {session:false}), read)
+router.post('/', create)
 
+/* router.get('/', function(req,res,next) {
+    res.send('respond with a resource')
+})
+
+router.get("/mangas",(req, res, next)=>res.status(201).json({
+    succes:true,
+    admins: []
+}))
+ */
 export default router
 

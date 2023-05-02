@@ -11,4 +11,3 @@ router.get("/", read)
 router.post("/chapter-form",validator(createChapter),create)
 
 export default router
-
