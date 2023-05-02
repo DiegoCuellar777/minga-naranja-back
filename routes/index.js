@@ -1,6 +1,3 @@
-//<<<<<<<<<< enrutador principal >>>>>>>>>>>
-
-// Rutas
 import express from 'express';
 import userRouter from "./users.js"
 import authorRouter from "./authors.js"
@@ -13,14 +10,14 @@ import carouselRouter from "./carousels.js"
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'MINGA API',
     subtitle: "Endpoints of Minga"
-  });
+});
 });
 
-const midd1 = (req, res, next) => {
+const midd1 = (req, res, next) =>{
   console.log("Solo estoy en categories")
   next()
 }

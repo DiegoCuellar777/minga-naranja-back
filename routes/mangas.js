@@ -3,9 +3,11 @@
 import { Router } from "express"
 import read from "../controllers/mangas/read.js"
 import create from "../controllers/mangas/create.js"
+import passport from "passport"
+
 let router = Router()
 
-router.get("/", read)
+router.get("/", passport.authenticate('jwt', {session:false}), read)
 router.post('/', create)
 
 /* router.get('/', function(req,res,next) {
