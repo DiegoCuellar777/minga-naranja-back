@@ -8,27 +8,24 @@ import chapterRouter from "./chapters.js"
 import mangaRouter from "./mangas.js"
 import carouselRouter from "./carousels.js"
 
+import conectedEndpoint from '../middlewares/conectedEndpoint.js';
+
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', {
     title: 'MINGA API',
     subtitle: "Endpoints of Minga"
-});
+  });
 });
 
-const midd1 = (req, res, next) =>{
-  console.log("Solo estoy en categories")
-  next()
-}
-
-router.use("/auth", userRouter)
-router.use("/authors", authorRouter)
-router.use("/categories", midd1, categoryRouter)
-router.use("/companies", companyRouter)
-router.use("/mangas", mangaRouter)
-router.use("/chapters", chapterRouter)
-router.use("/carousels", carouselRouter)
+router.use("/auth", conectedEndpoint, userRouter)
+router.use("/api/authors", conectedEndpoint, authorRouter)
+router.use("/categories", conectedEndpoint, categoryRouter)
+router.use("/companies", conectedEndpoint, companyRouter)
+router.use("/mangas", conectedEndpoint, mangaRouter)
+router.use("/chapters", conectedEndpoint, chapterRouter)
+router.use("/carousels", conectedEndpoint, carouselRouter)
 
 export default router

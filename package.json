@@ -17,6 +17,7 @@
     "express": "^4.18.2",
     "http-errors": "~1.6.3",
     "joi": "^17.9.2",
+    "joi-oid": "^1.1.2",
     "mongoose": "^7.0.5",
     "morgan": "~1.9.1"
   },
