@@ -1,5 +1,7 @@
 import express from 'express';
 import create from "../controllers/auths/create.js"
+import validator from '../middlewares/validator.js';
+import { userSignUp } from '../schemas/users.js'; 
 
 const router = express.Router();
 
@@ -13,7 +15,7 @@ router.get('/admins', (req, res, next)=> res.status(200).json({
   admins: []
 }))
 
-router.post("/signup",  create)
+router.post("/signup", validator(userSignUp), create)
 
 
 export default router
