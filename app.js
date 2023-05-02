@@ -17,6 +17,8 @@ import errorHandler from './middlewares/errorHandler.js'
 
 import { __dirname } from './utils.js'
 
+//organizar mejor y separar los middlewares
+
 
 const app = express()
 
