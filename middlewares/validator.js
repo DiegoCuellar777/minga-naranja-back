@@ -14,4 +14,3 @@ const validator = (schema) => [
 ]
 
 export default validator
-

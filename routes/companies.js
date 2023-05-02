@@ -1,4 +1,4 @@
-// Se definen los endpoints de los autores 
+// Se definen los endpoints de las companias
 // y se exportan para poder utilizarlos en el enrutador PRINCIPAL
 
 import { Router } from "express"
