@@ -13,3 +13,5 @@ const signout = async (req, res, next) => {
         next(error)
     }
 }
+
+export default signout
