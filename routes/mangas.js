@@ -24,4 +24,3 @@ router.get("/mangas",(req, res, next)=>res.status(201).json({
 }))
 
 export default router
-

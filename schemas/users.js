@@ -23,3 +23,17 @@ export const userSignUp = Joi.object({
     }),
     notifications: Joi.any()
 })
+
+
+export const userSignIn = Joi.object({
+    
+    email: Joi.string().required().email({minDomainSegments:2}).messages({
+        "any.required": "An email is required",
+        "string.empty": "An email is required",
+        "string.email": "Invalid email"
+    }),
+    password: Joi.string().required().messages({
+        "any.required": "Password required",
+        "string.empty": "Password required"
+    })
+})

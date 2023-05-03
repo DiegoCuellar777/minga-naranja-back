@@ -4,6 +4,7 @@ import Manga from '../../models/Manga.js'
 // req, res son propiedades de un objeto, y next es una funcion
 let create = async(req, res, next) => {
     try {
+
         console.log(req.body)
         let one = await Manga.create(req.body)    // se intenta crear un manga- 1 unico objeto
         await one.save()

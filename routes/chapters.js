@@ -1,14 +1,17 @@
+
 // Se definen los endpoints de los capitulos 
 // y se exportan para poder utilizarlos en el enrutador PRINCIPAL
 
 import { Router } from "express"
 import read from "../controllers/chapters/read.js"
+import create from "../controllers/chapters/create.js"
+import {createChapter} from '../schemas/chapters.js'
+import validator from "../middlewares/validator.js"
+
 let router = Router()
 
-//router.post("/",(req, res, next)=>res.status(200).send("autor creado"))
 router.get("/", read)
-//router.put("/id",(req, res, next)=>res.status(200).send("autor modificado"))
-//router.delete("/id",(req, res, next)=>res.status(200).send("autor eliminado"))
+
+router.post("/chapter-form",validator(createChapter),create)
 
 export default router
-
