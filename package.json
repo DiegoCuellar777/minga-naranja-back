@@ -19,6 +19,7 @@
     "http-errors": "~1.6.3",
     "joi": "^17.9.2",
     "joi-oid": "^1.1.2",
+    "joid": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.5",
     "morgan": "~1.9.1",

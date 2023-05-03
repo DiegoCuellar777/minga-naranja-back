@@ -1,3 +1,7 @@
+
+// Se definen los endpoints de los capitulos 
+// y se exportan para poder utilizarlos en el enrutador PRINCIPAL
+
 import { Router } from "express"
 import read from "../controllers/chapters/read.js"
 import create from "../controllers/chapters/create.js"
