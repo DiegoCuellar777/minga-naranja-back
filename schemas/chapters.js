@@ -2,16 +2,34 @@ import joi from 'joi'
 
 export const createChapter = joi.object({
     title: joi.string()
-        .required(),
+        .required()
+        .messages({
+            'any.required': 'Title Required',
+            'string.empty': 'Title Required'
+        }),
     cover_photo: joi.string()
         .uri()
-        .required(),
-    pages: joi.string()
-        .uri()
-        .required(),
+        .required()
+        .messages({
+            'any.required': 'Cover Photo Required',
+            'string.empty': 'Cover Photo Required',
+            'string.uri': 'Invalid Url'
+        }),
+    pages: joi.array()
+        .items(
+            joi.string()
+                .uri())
+        .required()
+        .messages({
+            'any.required': 'Pages Required',
+            /* 'array.base': 'Pages Required',
+            'array.empty': 'Pages Required',
+            'string.uri': 'Invalid Url' */
+        }),
     order: joi.number()
         .required()
-}).messages({
-    'any.required': '{#label} is required',
-    'string.uri': '{#label} must be a valid URI'
-});
+        .messages({
+            'number.base': 'Order must be a number'
+        })
+})
+
