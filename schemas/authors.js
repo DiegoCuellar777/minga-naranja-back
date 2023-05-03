@@ -2,19 +2,16 @@ import joi from "joi-oid"
 
 export const authorCreate = joi.object({
     name: joi.string().required().messages({
-        'any.required': 'El nombre es requerido',
+        "string.empty": "A name is required",
     }),
-    last_name: joi.string().messages({
-        'any.required': 'El apellido es requerido',
-    }),
+    last_name: joi.string().allow(null).empty(''),
     city: joi.string().required().messages({
-        'any.required': 'La ciudad es requerida',
+        "string.empty": "A city is required",
     }),
-    country: joi.string().required().messages({
-        'any.required': 'El pais es requerido',
+    country: joi.string().required().trim().messages({
+        "string.empty": "A country is required",
     }),
     photo: joi.string().uri().required().messages({
-        'any.required': 'La url es requerida',
+        "string.empty": "A url is required",
     }),
-    
 })
