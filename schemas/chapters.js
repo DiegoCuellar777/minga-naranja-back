@@ -2,12 +2,23 @@ import joi from 'joi'
 
 export const createChapter = joi.object({
     title: joi.string()
-        .required(),
+        .required()
+        .messages({
+            'any.required': 'PIPO',
+            'string.empty': 'PIPO'
+        }),
     cover_photo: joi.string()
         .uri()
-        .required(),
-    pages: joi.string()
-        .uri()
+        .required()
+        .messages({
+            'any.required': 'PIPO',
+            'string.empty': 'PIPO',
+            'string.uri': 'INVALID_URL'
+        }),
+    pages: joi.array()
+        .items(
+            joi.string()
+                .uri())
         .required(),
     order: joi.number()
         .required()

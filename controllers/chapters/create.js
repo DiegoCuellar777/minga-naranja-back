@@ -5,6 +5,7 @@ let create = async(req,res,next) => {
     req.body.manga_id = '6450e6a156bfbd76de7cb258'
     try {
         
+        console.log('Este es el objeto ',req.body)
         let one = await new Chapter(req.body)
         await one.save()
         return res.status(201).json({
@@ -14,7 +15,7 @@ let create = async(req,res,next) => {
         })
 
     } catch (error) {
-        console.log(error)
+        console.log('Este es el error',error)
         next(error)
     }
 }

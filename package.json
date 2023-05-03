@@ -17,10 +17,7 @@
     "express": "^4.18.2",
     "http-errors": "~1.6.3",
     "joi": "^17.9.2",
-<<<<<<< HEAD
-=======
     "jsonwebtoken": "^9.0.0",
->>>>>>> a87e2aa11f002d4ba0a3bc7ca2b1de1e85d26bd1
     "joi-oid": "^1.1.2",
     "mongoose": "^7.0.5",
     "morgan": "~1.9.1",
