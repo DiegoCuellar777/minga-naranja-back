@@ -16,7 +16,8 @@ let signin = async(req,res,next) => {
             id: req.user.id,
             email: req.user.email,
             photo: req.user.photo,
-            role: req.user.role
+            role: req.user.role,
+            id: req.user.id
         }
         return res.status(200).json({
             success: true,
