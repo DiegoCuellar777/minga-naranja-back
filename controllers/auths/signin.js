@@ -13,12 +13,12 @@ let signin = async(req,res,next) => {
             {expiresIn: 60*60*24}
         )
         const user = {
+            id: req.user.id,
             email: req.user.email,
             photo: req.user.photo,
             role: req.user.role,
             id: req.user.id
         }
-
         return res.status(200).json({
             success: true,
             message: "User signed in",

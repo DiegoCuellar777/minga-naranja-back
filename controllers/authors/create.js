@@ -2,9 +2,11 @@
 import Author from "../../models/Author.js"
 
 let create = async (req, res, next) => {
+    console.log(req.user)
     try {
+        req.body.user_id = req.user.id
+        console.log(req.user)
         req.body.active = true
-        req.body.user_id = req.user._id;
         console.log(req.body)
         let one = new Author(req.body)
         await one.save() // llama a la función save() para guardar el autor en la base de datos
@@ -14,8 +16,8 @@ let create = async (req, res, next) => {
             createdAt: one.createdAt // accede a la propiedad createdAt después de llamar a la función save()
         })
     } catch (error) {
+        console.log(req.user)
         next(error)
     }
 }
-
 export default create
