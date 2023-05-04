@@ -1,33 +1,38 @@
 import joi from "joi";
 import joiOid from 'joi-oid';
 
-export const MangaForm = joi.object({
-    author_id: joiOid.objectId().required()
+export const MangaForm=joi.object({
+    author_id: joiOid.objectId()
         .messages({
-            'any.required': 'AUTHOR_ID_REQUIRED',
-            'string.required': 'AUTHOR_REQUIRED'
+            'any.required': 'Author id required',
+            'string.required': 'Author required'
         }),
     company_id: joiOid.objectId(),
-    title: joi.string().required()
+    title: joi.string()
+        .required()
         .messages({
-            'any.required': 'TITLE_REQUIRED',
-            'string.empty': 'TITLE_REQUIRED'
+            'any.required': 'Title required',
+            'string.empty': 'Title required'
         }),
-    cover_photo: joi.string().uri().required()
+    cover_photo: joi.string()
+        .uri()
         .messages({
-            'any.required': 'IMG_REQUIRED',
-            'string.empty': 'IMG_REQUIRED',
-            'string.uri': 'INVALID_URL'
+            'any.required': 'Image required',
+            'string.empty': 'Image required',
+            'string.uri': 'Url invalid'
         }),
-    description: joi.string().min(10).required()
+    description: joi.string()
+        .min(10)
+        .required()
         .messages({
-            'any.required': 'DESCRIPTION_REQUIRED',
-            'string.required': 'DESCRIPTION_REQUIRED',
-            'string.min': 'DESCRIPTION_TOO_SHORT'
+            'any.required': 'Description required',
+            'string.required': 'Description required',
+            'string.min': 'Description too short'
         }),
-    category_id: joiOid.objectId().required()
+    category_id: joiOid.objectId()
+        .required()
         .messages({
-            'any.required': 'CATEGORY_ID_REQUIRED',
-            'string.empty': 'CATEGORY_REQUIRED'
+            'any.required': 'Category id required',
+            'string.empty': 'Category id required'
         })
 });
