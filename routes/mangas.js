@@ -5,18 +5,14 @@ import read from "../controllers/mangas/read.js"
 import create from "../controllers/mangas/create.js"
 import passport from "passport"
 
-import { MangaForm } from "../schemas/mangas.js"
+import { Mangas } from "../schemas/mangas.js"
 import validator from "../middlewares/validator.js"
 
 let router = Router()
 
 router.get("/", passport.authenticate('jwt', {session:false}), read)
-router.post('/', validator(MangaForm), create)
+router.post('/', validator(Mangas), create)
 
-
-router.get('/', function(req,res,next) {
-    res.send('respond with a resource')
-})
 
 router.get("/mangas",(req, res, next)=>res.status(201).json({
     succes:true,

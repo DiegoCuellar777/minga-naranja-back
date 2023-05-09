@@ -1,13 +1,12 @@
-import joi from "joi";
-import joiOid from 'joi-oid';
+import joi from "joi-oid";
 
-export const MangaForm=joi.object({
-    author_id: joiOid.objectId()
+export const Mangas = joi.object({
+    author_id: joi.objectId()
         .messages({
             'any.required': 'Author id required',
             'string.required': 'Author required'
         }),
-    company_id: joiOid.objectId(),
+    company_id: joi.objectId(),
     title: joi.string()
         .required()
         .messages({
@@ -29,7 +28,7 @@ export const MangaForm=joi.object({
             'string.required': 'Description required',
             'string.min': 'Description too short'
         }),
-    category_id: joiOid.objectId()
+    category_id: joi.objectId()
         .required()
         .messages({
             'any.required': 'Category id required',
