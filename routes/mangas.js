@@ -3,6 +3,7 @@
 import { Router } from "express"
 import read from "../controllers/mangas/read.js"
 import create from "../controllers/mangas/create.js"
+import getMangasFromAuthor from "../controllers/mangas/get_mangas_from_autor.js"
 import passport from "passport"
 
 import { MangaForm } from "../schemas/mangas.js"
@@ -13,6 +14,7 @@ let router = Router()
 router.get("/", passport.authenticate('jwt', {session:false}), read)
 router.post('/', validator(MangaForm), create)
 
+router.get("/:author_id", getMangasFromAuthor);
 
 router.get('/', function(req,res,next) {
     res.send('respond with a resource')
