@@ -5,6 +5,7 @@ import read from "../controllers/mangas/get_mangas.js"
 import create from "../controllers/mangas/create.js"
 import getMangasFromAuthor from "../controllers/mangas/get_mangas_from_autor.js"
 import passport from "passport"
+import getOne from '../controllers/mangas/get_one.js'
 
 import { Mangas } from "../schemas/mangas.js"
 import validator from "../middlewares/validator.js"
@@ -21,5 +22,7 @@ router.get("/mangas",(req, res, next)=>res.status(201).json({
     succes:true,
     admins: []
 }))
+
+router.get('/:manga_id',getOne)
 
 export default router
