@@ -6,7 +6,7 @@ let get_mangas = async(req, res, next)=> {
     //queries.category_id = queries.category_id ?? ''
     let queries = {}
     let sort = {}
-    let pagination = {
+    let pagination = { 
         limit: 5,
         page: 1
     } 
