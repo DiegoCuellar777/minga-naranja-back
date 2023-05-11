@@ -13,7 +13,7 @@ let read = async (req, res, next) => {
     
     let mangaId = chapter.manga_id
 
-    let all = await Chapter.find({ manga_id: mangaId } , "title pages")
+    let all = await Chapter.find({ manga_id: mangaId } , "title pages manga_id")
     
     if (all.length > 0) {
         return res.status(200).json({
