@@ -13,16 +13,16 @@ import exists_title from '../middlewares/exists_title.js'
 
 let router = Router()
 
-router.get("/", passport.authenticate('jwt', {session:false}), read)
+router.get("/", passport.authenticate('jwt', { session: false }), read)
 router.post('/', validator(Mangas), exists_title, create)
 
-router.get("/:author_id", getMangasFromAuthor);
+router.get("/authors/:author_id", passport.authenticate("jwt", { session: false }), getMangasFromAuthor);
 
-router.get("/mangas",(req, res, next)=>res.status(201).json({
-    succes:true,
+router.get("/mangas", (req, res, next) => res.status(201).json({
+    succes: true,
     admins: []
 }))
 
-router.get('/:manga_id',getOne)
+router.get('/:manga_id', getOne)
 
 export default router

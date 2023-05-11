@@ -9,16 +9,16 @@ const getMangasFromAuthor = async (req, res, next) => {
         if (isNew) {
             mangas = await Manga.find({ author_id })
                 .sort({ createdAt: 1 })
-                .select("title cover_photo -_id")
+                .select("title cover_photo author_id -_id")
                 .limit(4);
         } else {
             mangas = await Manga.find({ author_id })
                 .sort({ createdAt: 1 })
-                .select("title cover_photo -_id");
+                .select("title cover_photo author_id -_id");
             if (req.query.new === 'true') {
                 mangas = await Manga.find({ author_id })
                     .sort({ createdAt: -1 })
-                    .select("title cover_photo -_id")
+                    .select("title cover_photo author_id -_id")
                     .limit(4);
             }
         }

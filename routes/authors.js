@@ -15,6 +15,6 @@ import { authorCreate } from "../schemas/authorsCreate.js"
 router.get("/", read)
 router.post("/", passport.authenticate("jwt", { session: false }), author_id, validator(authorCreate), authorExistsCreate, create)
 
-router.get('/:id', getOneAuthor);
+router.get('/:id', passport.authenticate("jwt", { session: false }), getOneAuthor);
 
 export default router
