@@ -7,7 +7,7 @@ let get_mangas = async(req, res, next)=> {
     let queries = {}
     let sort = {}
     let pagination = {
-        limit: 6,
+        limit: 5,
         page: 1
     } 
     if(req.query.title) {
