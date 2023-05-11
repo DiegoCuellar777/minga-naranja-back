@@ -24,4 +24,4 @@ async function is_Active(req, res, next) {
     }
 };
 
-export default is_Active 
+export default is_Active

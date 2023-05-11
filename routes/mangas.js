@@ -5,24 +5,23 @@ import read from "../controllers/mangas/get_mangas.js"
 import create from "../controllers/mangas/create.js"
 import getMangasFromAuthor from "../controllers/mangas/get_mangas_from_autor.js"
 import passport from "passport"
-import getOne from '../controllers/mangas/get_one.js'
-
+import one from '../controllers/mangas/get_one.js'
 import { Mangas } from "../schemas/mangas.js"
 import validator from "../middlewares/validator.js"
 import exists_title from '../middlewares/exists_title.js'
 
 let router = Router()
 
-router.get("/", passport.authenticate('jwt', {session:false}), read)
+router.get("/", passport.authenticate('jwt', { session: false }), read)
 router.post('/', validator(Mangas), exists_title, create)
+router.get('/:manga_id',one)
 
-router.get("/:author_id", getMangasFromAuthor);
+router.get("/authors/:author_id", passport.authenticate("jwt", { session: false }), getMangasFromAuthor);
 
-router.get("/mangas",(req, res, next)=>res.status(201).json({
-    succes:true,
+router.get("/mangas", (req, res, next) => res.status(201).json({
+    succes: true,
     admins: []
 }))
 
-router.get('/:manga_id',getOne)
 
 export default router
