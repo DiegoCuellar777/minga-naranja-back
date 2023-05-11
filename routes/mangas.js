@@ -16,20 +16,12 @@ router.get("/", passport.authenticate('jwt', { session: false }), read)
 router.post('/', validator(Mangas), exists_title, create)
 router.get('/:manga_id',one)
 
-<<<<<<< HEAD
-router.get("/authors/:author_id", passport.authenticate('jwt', {session:false}), getMangasFromAuthor);
-=======
 router.get("/authors/:author_id", passport.authenticate("jwt", { session: false }), getMangasFromAuthor);
->>>>>>> 8322c676e7d7f7e1583b5bb0174f0d26b8acfb4b
 
 router.get("/mangas", (req, res, next) => res.status(201).json({
     succes: true,
     admins: []
 }))
 
-<<<<<<< HEAD
-=======
-router.get('/:manga_id', getOne)
->>>>>>> 8322c676e7d7f7e1583b5bb0174f0d26b8acfb4b
 
 export default router
