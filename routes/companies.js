@@ -1,14 +1,18 @@
-// Se definen los endpoints de las companias
-// y se exportan para poder utilizarlos en el enrutador PRINCIPAL
-
 import { Router } from "express"
-import read from "../controllers/companies/read.js"
 let router = Router()
 
-//router.post("/",(req, res, next)=>res.status(200).send("autor creado"))
+import read from "../controllers/companies/read.js"
+import create from "../controllers/companies/create.js"
+
+import validator from "../middlewares/validator.js"
+import companyExistsCreate from "../middlewares/companyExistsCreate.js"
+import passport from "../middlewares/passport.js"
+import author_id from "../middlewares/author_id.js"
+
+import { companyCreate } from "../schemas/companyCreate.js"
+
 router.get("/", read)
-//router.put("/id",(req, res, next)=>res.status(200).send("autor modificado"))
-//router.delete("/id",(req, res, next)=>res.status(200).send("autor eliminado"))
+router.post("/", passport.authenticate("jwt", { session: false }), author_id, validator(companyCreate), companyExistsCreate, create)
 
 export default router
 
