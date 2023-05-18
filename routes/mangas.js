@@ -24,7 +24,7 @@ router.get('/me', passport.authenticate('jwt', { session: false }), finds_id, ge
 router.get('/:manga_id',one)
 router.get("/authors/:author_id", passport.authenticate("jwt", { session: false }), getMangasFromAuthor);
 
-router.post('/', passport.authenticate('jwt', { session:false }), validator(Mangas), exists_title, create)
+router.post('/', passport.authenticate('jwt', { session:false }), validator(Mangas), exists_title, finds_id, create)
 
 router.put('/:id', passport.authenticate('jwt', { session: false }), validator(mangaUpd), is_active, is_property_of, exists_title, finds_id, editManga) 
 
