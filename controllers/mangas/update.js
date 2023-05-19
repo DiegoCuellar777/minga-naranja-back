@@ -15,10 +15,13 @@ const editManga = async(req, res, next) => {
         )
         if ( upd_manga ){
             return res.status(200).json({
+                succes: true, 
+                message: 'modified',
                 response: upd_manga
             })
         } else {
             return res.status(404).json({
+                succes: false,
                 response: 'Not found'
             })
         }

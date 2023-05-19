@@ -6,11 +6,7 @@ const destroyManga = async (req, res, next) => {
 
     try {
         const destroyedChapters = await Chapter.deleteMany({ manga_id: mangaId })
-
-        if (destroyedChapters.deletedCount === 0) {
-            return res.status(404).json({ response: 'No chapters found for the manga' })
-        }
-
+        
         try {
             const destroyedManga = await Manga.deleteOne({ _id: mangaId })
 
