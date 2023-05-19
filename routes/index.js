@@ -6,6 +6,7 @@ import companyRouter from "./companies.js"
 import chapterRouter from "./chapters.js"
 import mangaRouter from "./mangas.js"
 import carouselRouter from "./carousels.js"
+import commentRouter from './comments.js';
 
 import conectedEndpoint from '../middlewares/conectedEndpoint.js';
 
@@ -26,5 +27,7 @@ router.use("/companies", conectedEndpoint, companyRouter)
 router.use("/mangas", conectedEndpoint, mangaRouter)
 router.use("/chapters", conectedEndpoint, chapterRouter)
 router.use("/carousels", conectedEndpoint, carouselRouter)
+router.use("/api/comments", conectedEndpoint, commentRouter)
+
 
 export default router
