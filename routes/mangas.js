@@ -16,6 +16,7 @@ import editManga from '../controllers/mangas/update.js'
 import is_property_of from '../middlewares/is_property_of.js'
 import is_active from '../middlewares/is_active.js'
 import deleteManga from '../controllers/mangas/destroy.js'
+import isPropertyOf from "../middlewares/is_Property_of_nico.js"
 
 let router = Router()
 
@@ -26,9 +27,9 @@ router.get("/authors/:author_id", passport.authenticate("jwt", { session: false 
 
 router.post('/', passport.authenticate('jwt', { session:false }), validator(Mangas), exists_title, finds_id, create)
 
-router.put('/:id', passport.authenticate('jwt', { session: false }), validator(mangaUpd), is_active, is_property_of, exists_title, finds_id, editManga) 
+router.put('/:id', passport.authenticate('jwt', { session: false }), validator(mangaUpd), is_active, isPropertyOf, exists_title, finds_id, editManga) 
 
-router.delete('/:id', passport.authenticate('jwt', { session: false }), is_active, is_property_of, finds_id, deleteManga)
+router.delete('/:id', passport.authenticate('jwt', { session: false }), is_active, isPropertyOf, finds_id, deleteManga)
 
 router.get("/mangas", (req, res, next) => res.status(201).json({
     succes: true,

@@ -1,7 +1,6 @@
 function authorizedRole(req, res, next) {
     const role = req.user.role
 
-    console.log(role)
     if (role === 1 || role === 2) {
         return next()
     }
