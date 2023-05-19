@@ -35,7 +35,7 @@ let get_mangas = async (req, res, next) => {
             .limit(pagination.limit > 0 ? pagination.limit : 0)
         return res.status(200).json({
             succes: true,
-            response: all
+            response: all,
         })
     } catch (error) {
         next(error)
