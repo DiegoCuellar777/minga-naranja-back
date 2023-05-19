@@ -10,11 +10,19 @@ const update = async(req, res, next) => {
                 chapterData,
                 { new: true }
             )
-            return res.status(200).json({
-                success: true,
-                message: "updated",
-                update
-            })
+
+            if (update) {
+                return res.status(200).json({
+                    success: true,
+                    message: "updated",
+                    update
+                })
+            }else{
+                return res.status(404).json({
+                    success: false,
+                    message: "Not found"
+                })
+            }
         } catch (error) {
             next(error)
         }
