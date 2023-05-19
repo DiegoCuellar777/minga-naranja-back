@@ -2,6 +2,7 @@ import joi from "joi-oid";
 
 export const Mangas = joi.object({
     author_id: joi.objectId()
+        .required() 
         .messages({
             'any.required': 'Author id required',
             'string.required': 'Author required'
@@ -15,8 +16,9 @@ export const Mangas = joi.object({
         }),
     cover_photo: joi.string()
         .uri()
+        .required()
         .messages({
-            'any.required': 'Image required',
+            'any.required': 'Url invalid',
             'string.empty': 'Image required',
             'string.uri': 'Url invalid'
         }),
