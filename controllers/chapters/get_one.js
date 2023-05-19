@@ -3,7 +3,7 @@ import createHttpError from "http-errors"
 
 let read = async (req, res, next) => {  
     let { _id } = req.params
-
+    console.log(_id)
     try {
         let chapter = await Chapter.findById(_id)
 
@@ -24,7 +24,6 @@ let read = async (req, res, next) => {
     return next(createHttpError(404, "No se encontraron otros capítulos para este manga"))
     
     } catch (error) {
-        console.log(error)
         next(error)
     }
 }

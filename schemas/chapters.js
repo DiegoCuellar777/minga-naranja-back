@@ -33,3 +33,7 @@ export const createChapter = joi.object({
         })
 })
 
+export const editChapter = joi.object({
+    
+})  
+

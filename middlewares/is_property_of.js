@@ -1,23 +1,26 @@
-import Manga from "../models/Manga.js"
-import Author from "../models/Author.js"
+import Manga from "../models/Manga.js";
+import createHttpError from "http-errors";
 
-async function isPropertyOf(req, res, next) {
-    const manga = await Manga.findOne({ manga_id: req.body._id })
-    if (manga) {
-        return next()
-    }
-    const author = await Author.findOne({ user_id: req.body.user_id })
-    if (author) {
-        req.author = {
-            user_id: author._id,
-            role: author.role === 1 || author.role === 2,
-        }
-    }
-    return res.status(400).json({
-        succes: false,
-        statusCode: 400,
-        message: "This manga already dont exist"
-    })
+const isPropertyOf = async (req, res, next) => {
+    const { manga_id, author_id } = req.body;
 
-}
-export default isPropertyOf
+    try {
+    // Buscar el manga por _id y author_id
+    const manga = await Manga.findOne({
+        _id: manga_id,
+        author_id: author_id,
+    });
+
+    if (!manga) {
+        return next(
+            createHttpError(403, "El manga no existe o no es propiedad del autor")
+        );
+    }
+
+    next();
+    } catch (error) {
+        next(error);
+    }
+};
+
+export default isPropertyOf;
