@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
 router.use("/auth", conectedEndpoint, userRouter)
 router.use("/api/authors", conectedEndpoint, authorRouter)
 router.use("/categories", conectedEndpoint, categoryRouter)
-router.use("/companies", conectedEndpoint, companyRouter)
+router.use("/api/companies", conectedEndpoint, companyRouter)
 router.use("/mangas", conectedEndpoint, mangaRouter)
 router.use("/chapters", conectedEndpoint, chapterRouter)
 router.use("/carousels", conectedEndpoint, carouselRouter)

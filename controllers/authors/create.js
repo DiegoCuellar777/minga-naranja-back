@@ -7,7 +7,7 @@ let create = async (req, res, next) => {
     try {
         req.body.user_id = req.user.id
         console.log(req.user)
-        req.body.active = true
+        req.body.active = false
         console.log(req.body)
         let one = new Author(req.body)
         await one.save() // llama a la función save() para guardar el autor en la base de datos
@@ -15,7 +15,7 @@ let create = async (req, res, next) => {
         await User.findByIdAndUpdate(
             req.user.id,
             {
-                role: 1,
+                /* role: 1, */
                 photo: req.body.photo
             },
             { new: true } // devuelve el usuario actualizado en lugar del anterior

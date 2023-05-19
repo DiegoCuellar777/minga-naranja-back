@@ -1,5 +1,5 @@
 const conectedEndpoint = (req, res, next) => {
-    console.log(`Endpoint connection:: ${req.originalUrl}`);
+    console.log(`Endpoint connection: ${req.originalUrl}`);
     next();
 };
 
