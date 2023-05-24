@@ -3,13 +3,21 @@ import Manga from '../../models/Manga.js'
 
 // req, res son propiedades de un objeto, y next es una funcion
 let createNewManga = async (req, res, next) => {
-    console.log(req.body)
-    req.body.role = 1
+
+    const { firebaseUrl } = req.file ? req.file : ""
+    const { title, description, category_id, author_id } = req.body
+
     try {
-        let one = await Manga.create(req.body)    // se intenta crear un manga- 1 unico objeto
+        let one = await Manga.create({
+            title,
+            description,
+            category_id,
+            author_id,
+            cover_photo: firebaseUrl
+        })    // se intenta crear un manga- 1 unico objeto
         await one.save()
-        console.log(req.body.data)
-        
+        //console.log(req.body.data)
+
         return res.status(201).json({
             manga: one,
             succes: true,
