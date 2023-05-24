@@ -13,6 +13,15 @@ import passport from '../middlewares/passport.js';
 import is_admin from '../middlewares/is_admin.js';
 import updateAuthor from '../controllers/authors/update.js';
 import updateCompany from '../controllers/companies/update.js';
+import multer from "multer"
+import uploadImg from '../services/firebase.cjs';
+
+const { uploadPhoto } = uploadImg
+
+const Multer = multer({
+  storage: multer.memoryStorage(),
+  limits: 10240*10240
+})
 
 const router = express.Router();
 
@@ -26,7 +35,7 @@ router.get('/admins', (req, res, next) => res.status(200).json({
   admins: []
 }))
 
-router.post("/signup", validator(userSignUp), accountExistsSignUp, signUp)
+router.post("/signup", Multer.single('photo'), uploadPhoto, validator(userSignUp), accountExistsSignUp, signUp)
 router.post("/signin", validator(userSignIn), accountExistsSignIn, passwordIsOk, accountHasBeenVerified, signin)
 router.post("/signout", passport.authenticate("jwt", { session: false }), signout)
 
