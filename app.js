@@ -19,6 +19,7 @@ import { __dirname } from './utils.js'
 
 //organizar mejor y separar los middlewares
 
+const loggerOpts = { skip: () => process.env.NODE_ENV === 'test' }
 
 const app = express()
 
@@ -34,7 +35,7 @@ app.use((req, res, next) => {
 })
 
 app.use(cors())
-app.use(logger('dev'));
+app.use(logger('dev', loggerOpts));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
