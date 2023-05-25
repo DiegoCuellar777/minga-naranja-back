@@ -1,28 +1,36 @@
-import joi from "joi-oid";
+import Joi from "joi-oid";
 
-export const Mangas = joi.object({
-    author_id: joi.objectId()
-        .required() 
+const MangasSchema = Joi.object({
+    author_id: Joi.objectId()
+        .required()
         .messages({
-            'any.required': 'Author id required',
-            'string.required': 'Author required'
+            "any.required": "Author id required",
+            "string.required": "Author required",
         }),
-    company_id: joi.objectId(),
-    title: joi.string()
+    company_id: Joi.objectId(),
+    title: Joi.string()
         .required()
         .messages({
             'any.required': 'Title required',
             'string.empty': 'Title required'
         }),
-    cover_photo: joi.string()
-        .uri()
+    cover_photo: Joi.string()
+        .custom((value, helpers) => {
+            const regex = /^https?:\/\/storage\.googleapis\.com\/.*$/;
+
+            if (regex.test(value)) {
+                return value;
+            }
+
+            return helpers.error('any.invalid');
+        }, 'Firebase URL validation')
         .required()
         .messages({
-            'any.required': 'Url invalid',
+            'any.required': 'URL invalid',
             'string.empty': 'Image required',
-            'string.uri': 'Url invalid'
+            'any.invalid': 'URL invalid'
         }),
-    description: joi.string()
+    description: Joi.string()
         .min(10)
         .required()
         .messages({
@@ -30,10 +38,12 @@ export const Mangas = joi.object({
             'string.required': 'Description required',
             'string.min': 'Description too short'
         }),
-    category_id: joi.objectId()
+    category_id: Joi.objectId()
         .required()
         .messages({
             'any.required': 'Category id required',
             'string.empty': 'Category id required'
         })
 });
+
+export default MangasSchema;

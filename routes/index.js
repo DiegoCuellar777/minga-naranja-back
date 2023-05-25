@@ -7,6 +7,7 @@ import chapterRouter from "./chapters.js"
 import mangaRouter from "./mangas.js"
 import carouselRouter from "./carousels.js"
 import commentRouter from './comments.js';
+import donationRouter from './donation.js';
 
 import conectedEndpoint from '../middlewares/conectedEndpoint.js';
 
@@ -53,6 +54,6 @@ router.use("/mangas", conectedEndpoint, mangaRouter)
 router.use("/chapters", conectedEndpoint, chapterRouter)
 router.use("/carousels", conectedEndpoint, carouselRouter)
 router.use("/api/comments", conectedEndpoint, commentRouter)
-
+router.use("/donation", conectedEndpoint, donationRouter)
 
 export default router
