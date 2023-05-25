@@ -3,7 +3,7 @@ import Author from "../../models/Author.js"
 import User from "../../models/User.js"
 
 let create = async (req, res, next) => {
-    console.log(req.user)
+    console.log(req.file)
     try {
         req.body.user_id = req.user.id
         console.log(req.user)

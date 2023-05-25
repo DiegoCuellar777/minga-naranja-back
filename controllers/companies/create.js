@@ -3,7 +3,7 @@ import Company from "../../models/Company.js"
 import User from "../../models/User.js"
 
 let create = async (req, res, next) => {
-    console.log(req.user)
+    console.log(req.body)
     try {
         req.body.user_id = req.user.id
         console.log(req.user)

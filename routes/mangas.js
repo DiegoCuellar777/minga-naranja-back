@@ -1,7 +1,7 @@
 // Se definen los endpoints de los mangas
 // y se exportan para poder utilizarlos en el enrutador PRINCIPAL
 import { Router } from "express"
-import multer from "multer"
+import Multer from "../middlewares/multer.js"
 import read from "../controllers/mangas/get_mangas.js"
 import create from "../controllers/mangas/create.js"
 import getMangasFromAuthor from "../controllers/mangas/get_mangas_from_autor.js"
@@ -18,14 +18,9 @@ import is_property_of from '../middlewares/is_property_of.js'
 import is_active from '../middlewares/is_active.js'
 import deleteManga from '../controllers/mangas/destroy.js'
 import isPropertyOf from "../middlewares/is_Property_of_nico.js"
-import uploadImg from '../services/firebase.cjs';
+import uploadImg from '../services/firebase.cjs'
 
 const { uploadImage } = uploadImg
-
-const Multer = multer({
-    storage: multer.memoryStorage(),
-    limits: 10240*10240
-})
 
 let router = Router()
 
