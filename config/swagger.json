@@ -1,0 +1,1658 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Minga API",
+    "version": "1.0.0",
+    "description": "Minga Api contains data about clients, authors, companies, mangas, comments, categories, and manga chapters"
+  },
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "summary": "Create accounts of new users",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSignup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful response"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "summary": "Create accounts of new users",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserSignin"
+              },
+              "examples": {
+                "example1": {
+                  "value": {
+                    "email": "igna@mh.com.ar",
+                    "password": "hola1234"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User signed in"
+          }
+        }
+      }
+    },
+    "/auth/signout": {
+      "post": {
+        "summary": "Sign out from user account",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful sign out"
+          }
+        }
+      }
+    },
+    "/auth/role/author/{id}": {
+      "put": {
+        "summary": "modify the norma user role by the author",
+        "description": "Updates the role of a user by their ID.",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRole"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/auth/role/company/{id}": {
+      "put": {
+        "summary": "modify the norma user role by company",
+        "description": "Updates the role of a user by their ID.",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRole"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/api/authors/admin": {
+      "get": {
+        "summary": "Get active and inactive authors",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "city": {
+                      "type": "string"
+                    },
+                    "country": {
+                      "type": "string"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "active": {
+                      "type": "boolean"
+                    },
+                    "user_id": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "__v": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/api/authors": {
+      "post": {
+        "summary": "Create a new author",
+        "description": "Creates a new author with the provided information.",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewAuthor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Author created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorCreated"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorCreationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/authors/{id}": {
+      "get": {
+        "summary": "Get author by ID",
+        "description": "Retrieves an author by their ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Author ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Author found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Author not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorNotFound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/carousels": {
+      "get": {
+        "summary": "Get carousels",
+        "description": "Retrieves the carousels.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CarouselResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get categories",
+        "description": "Retrieves all categories.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chapters/get": {
+      "get": {
+        "summary": "Get chapters",
+        "description": "Retrieves chapters based on manga ID or title with pagination.",
+        "parameters": [
+          {
+            "name": "manga_id",
+            "in": "query",
+            "description": "Manga ID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Chapter title",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of chapters per page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Chapters"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/chapters/{_id}/{page}": {
+      "get": {
+        "summary": "Get chapter by ID",
+        "description": "Retrieves a chapter by its ID and page number.",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Chapter ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "description": "Page number",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ChapterByIDAndPage"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Chapter not found"
+          }
+        }
+      }
+    },
+    "/chapters/{_id}": {
+      "delete": {
+        "summary": "Delete a chapter by ID for author logged",
+        "operationId": "deleteChapterById",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Chapter ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Chapter deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized: User is not an active author"
+          },
+          "403": {
+            "description": "Forbidden: User is not the owner of the chapter"
+          },
+          "404": {
+            "description": "Chapter not found"
+          }
+        }
+      }
+    },
+    "/chapters/{id}": {
+      "put": {
+        "summary": "Update a chapter by ID",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Chapter ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChapterData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Chapter updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Chapter"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized: User is not an active author"
+          },
+          "403": {
+            "description": "Forbidden: User is not the owner of the chapter"
+          },
+          "404": {
+            "description": "Chapter not found"
+          }
+        }
+      }
+    },
+    "/api/comments/read-Comments": {
+      "get": {
+        "summary": "Read all comments",
+        "description": "This endpoint retrieves all comments.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comments": {
+      "post": {
+        "summary": "Create a comment",
+        "description": "This endpoint creates a new comment.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comments/{id}": {
+      "put": {
+        "summary": "Update a comment",
+        "description": "This endpoint updates an existing comment by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Comment ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommentUpdateInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentUpdateResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      }
+    },
+    "/api/comments/{_id}": {
+      "delete": {
+        "summary": "Delete a comment",
+        "description": "This endpoint deletes an existing comment by its ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Comment ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully"
+          },
+          "404": {
+            "description": "Comment not found"
+          }
+        }
+      }
+    },
+    "/api/companies/admin": {
+      "get": {
+        "summary": "Get active and inactive companies",
+        "description": "This endpoint retrieves the data of both active and inactive companies.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Company"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/companies": {
+      "post": {
+        "summary": "Create a new company",
+        "description": "This endpoint allows the creation of a new company.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCompany"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Company created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyCreationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mangas": {
+      "get": {
+        "summary": "Get mangas",
+        "description": "Get mangas based on specified parameters",
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Title of the manga",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "description": "ID of the category",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "author_id",
+            "in": "query",
+            "description": "ID of the author",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 6
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Manga"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "passport": []
+          }
+        ]
+      }
+    },
+    "/mangas/me": {
+      "get": {
+        "summary": "Get mangas by authenticated author",
+        "description": "Get mangas that belong to the authenticated author",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Manga"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Author not found"
+          }
+        },
+        "security": [
+          {
+            "passport": []
+          }
+        ]
+      }
+    },
+    "/mangas/{manga_id}": {
+      "get": {
+        "summary": "Get manga by ID",
+        "description": "Get a manga by its ID",
+        "parameters": [
+          {
+            "name": "manga_id",
+            "in": "path",
+            "description": "ID of the manga",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Manga"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Manga not found"
+          }
+        }
+      }
+    },
+    "/mangas/authors/{author_id}": {
+      "get": {
+        "summary": "Get mangas by author ID",
+        "description": "Get mangas by the ID of the author",
+        "parameters": [
+          {
+            "name": "author_id",
+            "in": "path",
+            "description": "ID of the author",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MangaPreview"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Author not found"
+          }
+        },
+        "security": [
+          {
+            "passport": []
+          }
+        ]
+      }
+    },
+    "/mangasC": {
+      "post": {
+        "summary": "Create a new manga",
+        "description": "Create a new manga. Please note that the actual route is /mangas, but for documentation purposes, it is shown as /mangasC.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewManga"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful creation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MangaCreationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request or duplicate title"
+          },
+          "404": {
+            "description": "User is not an author or company"
+          }
+        },
+        "security": [
+          {
+            "passport": []
+          }
+        ]
+      }
+    },
+    "/mangas/{id}": {
+      "put": {
+        "summary": "Update a manga",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the manga",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "description": "Update a manga by its ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateManga"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful update"
+          },
+          "400": {
+            "description": "Manga does not exist"
+          },
+          "401": {
+            "description": "Author or company is not active"
+          },
+          "404": {
+            "description": "Manga not found"
+          }
+        }
+      }
+    },
+    "/mangas/{_id}": {
+      "delete": {
+        "summary": "Delete a manga",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "ID of the manga",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "ObjectId"
+            }
+          }
+        ],
+        "description": "Delete a manga by its ID",
+        "security": [
+          {
+            "passport": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful deletion"
+          },
+          "400": {
+            "description": "Manga does not exist"
+          },
+          "401": {
+            "description": "Author or company is not active"
+          },
+          "404": {
+            "description": "Manga not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UserSignup": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User name"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "Password length must be at least 8 characters long"
+          },
+          "photo": {
+            "type": "string",
+            "format": "uri",
+            "description": "Put a valid URL"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password",
+          "photo"
+        ]
+      },
+      "UserSignin": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User email"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "description": "Password associated with the account"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "UpdateUserRole": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "objectId",
+            "description": "ID of the user to update"
+          },
+          "roleId": {
+            "type": "integer",
+            "description": "ID of the new role"
+          }
+        },
+        "required": [
+          "roleId"
+        ]
+      },
+      "NewAuthor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "last_name",
+          "city",
+          "country",
+          "photo"
+        ]
+      },
+      "AuthorCreated": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AuthorCreationError": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "response": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "country": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "__v": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      },
+      "AuthorNotFound": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "response": {
+            "type": "null"
+          }
+        }
+      },
+      "CarouselResponse": {
+        "type": "object",
+        "properties": {
+          "carousel1": {
+            "type": "string"
+          },
+          "carousel2": {
+            "type": "string"
+          },
+          "carousel3": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "hover": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string"
+          },
+          "character_photo": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Chapters": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string"
+          },
+          "order": {
+            "type": "integer"
+          }
+        }
+      },
+      "ChapterByIDAndPage": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Chapter ID"
+          },
+          "manga_id": {
+            "type": "string",
+            "description": "Manga ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Chapter title"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Page URL"
+            }
+          }
+        }
+      },
+      "UpdateChapterData": {
+        "type": "object",
+        "properties": {
+          "manga_id": {
+            "type": "string",
+            "description": "ID of the manga associated with the chapter"
+          },
+          "title": {
+            "type": "string",
+            "description": "Chapter title"
+          },
+          "cover_photo": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the chapter cover photo"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Array of chapter pages"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the chapter"
+          }
+        },
+        "required": [
+          "manga_id",
+          "title",
+          "cover_photo",
+          "pages",
+          "order"
+        ]
+      },
+      "Chapter": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Chapter ID"
+          },
+          "manga_id": {
+            "type": "string",
+            "description": "ID of the manga associated with the chapter"
+          },
+          "title": {
+            "type": "string",
+            "description": "Chapter title"
+          },
+          "cover_photo": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the chapter cover photo"
+          },
+          "pages": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "Array of chapter pages"
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the chapter"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of chapter creation"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of chapter update"
+          },
+          "__v": {
+            "type": "integer",
+            "description": "Version number"
+          }
+        },
+        "required": [
+          "_id",
+          "manga_id",
+          "title",
+          "cover_photo",
+          "pages",
+          "order",
+          "createdAt",
+          "updatedAt",
+          "__v"
+        ]
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "chapter_id": {
+            "type": "string"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "CommentInput": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "chapter_id": {
+            "type": "string"
+          }
+        }
+      },
+      "CommentResponse": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "timestamps": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CommentUpdateInput": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          }
+        }
+      },
+      "CommentUpdateResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          },
+          "update": {
+            "type": "object",
+            "properties": {
+              "acknowledged": {
+                "type": "boolean"
+              },
+              "modifiedCount": {
+                "type": "number"
+              },
+              "upsertedId": {
+                "type": "null"
+              },
+              "upsertedCount": {
+                "type": "number"
+              },
+              "matchedCount": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "Company": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "__v": {
+            "type": "number"
+          }
+        }
+      },
+      "NewCompany": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "logo": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "website",
+          "logo",
+          "description"
+        ]
+      },
+      "CompanyCreationResponse": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Manga": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "author_id": {
+            "type": "string"
+          },
+          "company_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "category_id": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "__v": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "MangaPreview": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string"
+          }
+        }
+      },
+      "NewManga": {
+        "type": "object",
+        "properties": {
+          "author_id": {
+            "type": "string",
+            "format": "ObjectId"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "ObjectId"
+          },
+          "category_id": {
+            "type": "string",
+            "format": "ObjectId"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string",
+            "format": "url"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "author_id",
+          "company_id",
+          "category_id",
+          "description",
+          "cover_photo",
+          "title"
+        ]
+      },
+      "MangaCreationResponse": {
+        "type": "object",
+        "properties": {
+          "author": {
+            "type": "string"
+          },
+          "success": {
+            "type": "boolean",
+            "default": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "UpdateManga": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "cover_photo": {
+            "type": "string",
+            "format": "url"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "passport": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Bearer token obtained after successful authentication"
+      }
+    }
+  }
+}
