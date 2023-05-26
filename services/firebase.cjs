@@ -11,34 +11,6 @@ admin.initializeApp({
 
 const bucket = admin.storage().bucket()
 
-const uploadImage = async (req, res, next) => {
-
-  console.log(req.file)
-  if (!req.file) return next();
-
-  const cover_photo = req.file
-  const nameFile = Date.now() + "." + cover_photo.originalname.split('.').pop();
-
-  const file = bucket.file(nameFile);
-
-  const stream = file.createWriteStream({
-    metadata: {
-      contentType: cover_photo.mimetype
-    }
-  });
-
-  stream.on("error", (e) => {
-    console.error(e);
-  });
-  stream.on("finish", async () => {
-    await file.makePublic();
-    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nameFile}`;
-    req.body.cover_photo = req.file.firebaseUrl
-    next();
-  });
-  stream.end(cover_photo.buffer);
-};
-
 const uploadPhoto = async (req, res, next) => {
 
   console.log(req.file)
@@ -67,5 +39,89 @@ const uploadPhoto = async (req, res, next) => {
   stream.end(photo.buffer);
 };
 
-const uploadImg = { uploadImage, uploadPhoto }
+const uploadLogo = async (req, res, next) => {
+
+  console.log(req.file)
+  if (!req.file) return next();
+
+  const logo = req.file
+  const nameFile = Date.now() + "." + logo.originalname.split('.').pop();
+
+  const file = bucket.file(nameFile);
+
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: logo.mimetype
+    }
+  });
+
+  stream.on("error", (e) => {
+    console.error(e);
+  });
+  stream.on("finish", async () => {
+    await file.makePublic();
+    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nameFile}`;
+    req.body.logo = req.file.firebaseUrl
+    next();
+  });
+  stream.end(logo.buffer);
+};
+
+const uploadImage = async (req, res, next) => {
+
+  console.log(req.file)
+  if (!req.file) return next();
+
+  const cover_photo = req.file
+  const nameFile = Date.now() + "." + cover_photo.originalname.split('.').pop();
+
+  const file = bucket.file(nameFile);
+
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: cover_photo.mimetype
+    }
+  });
+
+  stream.on("error", (e) => {
+    console.error(e);
+  });
+  stream.on("finish", async () => {
+    await file.makePublic();
+    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nameFile}`;
+    req.body.cover_photo = req.file.firebaseUrl
+    next();
+  });
+  stream.end(cover_photo.buffer);
+};
+
+/* const uploadPages = async (req, res, next) => {
+
+  console.log(req.file)
+  if (!req.file) return next();
+
+  const pages = req.file
+  const nameFile = Date.now() + "." + pages.originalname.split('.').pop();
+
+  const file = bucket.file(nameFile);
+
+  const stream = file.createWriteStream({
+    metadata: {
+      contentType: pages.mimetype
+    }
+  });
+
+  stream.on("error", (e) => {
+    console.error(e);
+  });
+  stream.on("finish", async () => {
+    await file.makePublic();
+    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nameFile}`;
+    req.body.pages = req.file.firebaseUrl
+    next();
+  });
+  stream.end(pages.buffer);
+};
+ */
+const uploadImg = { uploadImage, uploadPhoto, uploadLogo }
 module.exports = uploadImg;
