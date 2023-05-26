@@ -13,15 +13,10 @@ import passport from '../middlewares/passport.js';
 import is_admin from '../middlewares/is_admin.js';
 import updateAuthor from '../controllers/authors/update.js';
 import updateCompany from '../controllers/companies/update.js';
-import multer from "multer"
+import Multer from '../middlewares/multer.js';
 import uploadImg from '../services/firebase.cjs';
 
 const { uploadPhoto } = uploadImg
-
-const Multer = multer({
-  storage: multer.memoryStorage(),
-  limits: 10240*10240
-})
 
 const router = express.Router();
 

@@ -13,6 +13,10 @@ import update from "../controllers/chapters/update.js"
 import is_active from "../middlewares/is_active.js"
 import isPropertyOf from "../middlewares/is_property_of.js"
 import remove from "../controllers/chapters/destroy.js"
+import Multer from "../middlewares/multer.js"
+import firebase from '../services/firebase.cjs'
+
+const { uploadImage } = firebase
 
 let router = Router()
 
@@ -23,6 +27,6 @@ router.get("/:_id/:page", one)
 router.get("/get", get_chapters)
 router.get("/", read)
 
-router.post("/chapter-form",passport.authenticate("jwt",{session:false}),validator(createChapter),authorizedRole,create)
+router.post("/chapter-form", Multer.single('cover_photo'), uploadImage, passport.authenticate("jwt",{session:false}),validator(createChapter),authorizedRole,create)
 
 export default router
