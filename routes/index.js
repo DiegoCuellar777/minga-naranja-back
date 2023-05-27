@@ -11,6 +11,31 @@ import donationRouter from './donation.js';
 
 import conectedEndpoint from '../middlewares/conectedEndpoint.js';
 
+import swaggerJSDoc from 'swagger-jsdoc';
+
+const app = express()
+
+const options = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Minga API',
+      version: '1.0.0',
+      description: 'API MIGNA INFO',
+    },
+  },
+  apis: ['./index.js',
+
+  ]
+}
+
+const swaggerSpec = swaggerJSDoc(options)
+
+app.get('/api-docs', (req, res) => {
+  res.setHeader('Content-Type', 'application/json')
+  res.send(swaggerSpec)
+})
+
 const router = express.Router();
 
 /* GET home page. */

@@ -17,6 +17,11 @@ import errorHandler from './middlewares/errorHandler.js'
 
 import { __dirname } from './utils.js'
 
+import  swaggerUi  from 'swagger-ui-express'
+import { readFileSync } from 'fs'
+
+const swaggerDocument = JSON.parse(readFileSync('./config/swagger.json', 'utf8'));
+
 //organizar mejor y separar los middlewares
 
 const loggerOpts = { skip: () => process.env.NODE_ENV === 'test' }
@@ -40,8 +45,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 
 app.use(notFound)
 app.use(errorHandler)
