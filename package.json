@@ -39,6 +39,7 @@
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "swagger-markdown": "^2.3.0"
   }
 }
