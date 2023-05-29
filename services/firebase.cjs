@@ -69,7 +69,7 @@ const uploadLogo = async (req, res, next) => {
 
 const uploadImage = async (req, res, next) => {
 
-  console.log(req.file)
+  //console.log(req.file)
   if (!req.file) return next();
 
   const cover_photo = req.file
@@ -95,33 +95,5 @@ const uploadImage = async (req, res, next) => {
   stream.end(cover_photo.buffer);
 };
 
-/* const uploadPages = async (req, res, next) => {
-
-  console.log(req.file)
-  if (!req.file) return next();
-
-  const pages = req.file
-  const nameFile = Date.now() + "." + pages.originalname.split('.').pop();
-
-  const file = bucket.file(nameFile);
-
-  const stream = file.createWriteStream({
-    metadata: {
-      contentType: pages.mimetype
-    }
-  });
-
-  stream.on("error", (e) => {
-    console.error(e);
-  });
-  stream.on("finish", async () => {
-    await file.makePublic();
-    req.file.firebaseUrl = `https://storage.googleapis.com/${BUCKET}/${nameFile}`;
-    req.body.pages = req.file.firebaseUrl
-    next();
-  });
-  stream.end(pages.buffer);
-};
- */
 const uploadImg = { uploadImage, uploadPhoto, uploadLogo }
 module.exports = uploadImg;

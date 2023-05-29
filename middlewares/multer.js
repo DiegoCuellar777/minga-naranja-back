@@ -1,15 +1,16 @@
 import multer from "multer";
 
 const Multer = multer({
+    storage: multer.memoryStorage(),
+    limits: 10240 * 10240,
     fileFilter: (req, file, cb) => {
+        console.log(file)
         if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
             cb(null, true);
         } else {
-            cb(new Error('Solo se permiten archivos PNG y JPEG.'));
+            cb(new Error('Only PNG y JPEG.'));
         }
-    },
-    storage: multer.memoryStorage(),
-    limits: 10240 * 10240,
+    }
 })
 
 export default Multer
