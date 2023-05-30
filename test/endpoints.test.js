@@ -24,17 +24,18 @@ describe('Api endpoints test', () => {
 
   }).timeout(30000)
 
-  it('should return 400 if user alredy exists OK for POST /auth/signup', (done) => {
+  it('should return 201 if the users account was successfully created for POST /auth/signup', (done) => {
     const exitsUser = {
-      email: 'ignaa@mh.com.ar',
+      name: "Pipo",
+      email: 'ignaa2@mh.com.ar',
+      password: 'hola1234',
+      photo: 'https://www.dofuspourlesnoobs.com/uploads/1/3/0/1/13010384/4670010_orig.png'
     };
     
-    app.use('/auth/signup', accountExistsSignUp)
-
     request(app)
       .post('/auth/signup')
       .send(exitsUser)
-      .expect(400)
+      .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err)
@@ -43,5 +44,19 @@ describe('Api endpoints test', () => {
       })
 
   }).timeout(30000)
-  
+
+  it('should return 200 if get the data of carousels /carousels', (done) => {
+
+    request(app)
+      .get('/carousels')
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+        done()
+      })
+
+  }).timeout(30000)
+
 });
